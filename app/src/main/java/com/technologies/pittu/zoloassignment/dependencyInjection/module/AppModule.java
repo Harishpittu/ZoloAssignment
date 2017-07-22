@@ -14,9 +14,9 @@ import dagger.Provides;
 import io.realm.Realm;
 
 /**
- * Created by janisharali on 25/12/16.
+ * Copyright (c) on 22/07/17
+ * All this files are belongs to Pittu Harish Reddy (harish)
  */
-
 
 @Module
 public class AppModule {

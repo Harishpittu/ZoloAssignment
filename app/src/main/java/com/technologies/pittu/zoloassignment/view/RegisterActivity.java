@@ -23,10 +23,12 @@ import com.technologies.pittu.zoloassignment.viewmodel.UserViewModel;
 
 import javax.inject.Inject;
 
+
 /**
- * An example full-screen activity that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
+ * Copyright (c) on 22/07/17
+ * All this files are belongs to Pittu Harish Reddy (harish)
  */
+
 public class RegisterActivity extends AppCompatActivity {
 
     @Inject

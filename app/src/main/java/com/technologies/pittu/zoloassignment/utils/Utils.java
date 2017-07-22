@@ -14,8 +14,8 @@ public class Utils {
 
     /**
      * to show snackbar message
-     * @param message
-     * @param view
+     * @param message string
+     * @param view view
      */
     public static void showSnackBar(String message, View view) {
         Snackbar snackbar = Snackbar

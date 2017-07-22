@@ -23,10 +23,12 @@ import com.technologies.pittu.zoloassignment.viewmodel.UserViewModel;
 
 import javax.inject.Inject;
 
+
 /**
- * An example full-screen activity that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
+ * Copyright (c) on 22/07/17
+ * All this files are belongs to Pittu Harish Reddy (harish)
  */
+
 public class ForgotPasswordActivity extends AppCompatActivity {
 
     @Inject
@@ -99,6 +101,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                         .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 startActivity(new Intent(getBaseContext(), LoginActivity.class));
+                                finish();
                             }
                         }).show();
             }

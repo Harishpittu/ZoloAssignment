@@ -31,20 +31,8 @@ public class UserViewModel extends BaseObservable {
         this.user.setPassword(user.getPassword());
     }
 
-
-
     public UserViewModel() {
         user = new User();
-    }
-
-    private boolean isOTPSent ;
-
-    public boolean isOTPSent() {
-        return isOTPSent;
-    }
-
-    public void setOTPSent(boolean OTPSent) {
-        isOTPSent = OTPSent;
     }
 
     public User getUser() {
@@ -56,17 +44,18 @@ public class UserViewModel extends BaseObservable {
     }
 
     private Drawable emailDoneIcon = null;
-    private Drawable phoneNumberDoneIcon = null;
 
     public String getUserEmail() {
         return user.getEmail();
     }
 
+    /**
+     * set and notify changes
+     * @param userEmail string
+     */
     public void setUserEmail(String userEmail) {
         this.user.setEmail(userEmail);
-        /** To get value of edittext enterd by user, This Updates the value of userEmail on Every LEtter Entered by User*/
         notifyPropertyChanged(R.id.emailEditText);
-        /**to check Email for validation on every character inserted by user*/
         notifyPropertyChanged(BR.errorEmail);
     }
 
@@ -74,11 +63,13 @@ public class UserViewModel extends BaseObservable {
         return user.getPassword();
     }
 
+    /**
+     * set and notify changes
+     * @param userPassword string
+     */
     public void setUserPassword(String userPassword) {
         this.user.setPassword(userPassword);
-        // Same for pass word
         notifyPropertyChanged(R.id.passwordEditText);
-
     }
 
     public String getUserPhoneNumber() {
@@ -87,9 +78,7 @@ public class UserViewModel extends BaseObservable {
 
     public void setUserPhoneNumber(String userPhoneNumber) {
         this.user.setPhoneNumber(userPhoneNumber);
-        /** To get value of edittext enterd by user, This Updates the value of userEmail on Every LEtter Entered by User*/
         notifyPropertyChanged(R.id.phonenumberEditText);
-        /**to check Email for validation on every character inserted by user*/
         notifyPropertyChanged(BR.errorPhoneNumber);
     }
 
@@ -99,9 +88,7 @@ public class UserViewModel extends BaseObservable {
 
     public void setUserName(String userName) {
         this.user.setName(userName);
-        /** To get value of edittext enterd by user, This Updates the value of userEmail on Every LEtter Entered by User*/
         notifyPropertyChanged(R.id.nameEditText);
-        /**to check Email for validation on every character inserted by user*/
         notifyPropertyChanged(BR.errorUserName);
     }
 
@@ -114,27 +101,44 @@ public class UserViewModel extends BaseObservable {
         this.emailDoneIcon = emailDoneIcon;
     }
 
-
+    /**
+     * check for valid password
+     *
+     * @return boolean
+     */
     public boolean isValidPassword() {
-        return !(TextUtils.isEmpty(this.user.getPassword()) || this.user.getPassword().length() < 8);
+        return !(isEmpty(this.user.getPassword()) || this.user.getPassword().length() < 8);
     }
 
+    /**
+     * check for valid fields
+     *
+     * @return boolean
+     */
     public boolean isAllFieldsValid() {
-        return !(TextUtils.isEmpty(this.user.getPassword()) || this.user.getPassword().length() < 8 || TextUtils.isEmpty(this.user.getEmail()) || !isValidEmail(this.user.getEmail()) ||
-                TextUtils.isEmpty(this.user.getName()) || TextUtils.isEmpty(this.user.getPhoneNumber())|| this.user.getPhoneNumber().length() < 8);
+        return !(isEmpty(this.user.getPassword()) || this.user.getPassword().length() < 8 || isEmpty(this.user.getEmail()) || !isValidEmail(this.user.getEmail()) ||
+                isEmpty(this.user.getName()) || isEmpty(this.user.getPhoneNumber())|| this.user.getPhoneNumber().length() < 8);
     }
 
-    //These Methods Check For Validation Every Time user enters a character
-    public static boolean isValidEmail(final String userEmail) {
+    /**
+     * check for valid mail
+     *
+     * @param userEmail email
+     * @return bool
+     */
+    private static boolean isValidEmail(final String userEmail) {
         Pattern pattern;
         Matcher matcher;
-        // final String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
         pattern = android.util.Patterns.EMAIL_ADDRESS;
         matcher = pattern.matcher(userEmail);
         return matcher.matches();
     }
 
-    // If you Dont Bind Here You Wont get BR values
+    /**
+     * bind for error in mail
+     *
+     * @return boolean
+     */
     @Bindable
     public String getErrorEmail() {
         setEmailDoneIcon(ZoloApplication.zoloApplication().getResources().getDrawable(R.drawable.ic_done_green_700_24dp));
@@ -145,6 +149,12 @@ public class UserViewModel extends BaseObservable {
         }
     }
 
+
+    /**
+     * bind for error in phonenumber
+     *
+     * @return boolean
+     */
     @Bindable
     public String getErrorPhoneNumber() {
         if (TextUtils.isEmpty(this.user.getPhoneNumber()) || this.user.getPhoneNumber().length() < 8) {
@@ -154,6 +164,12 @@ public class UserViewModel extends BaseObservable {
         }
     }
 
+
+    /**
+     * bind for error in name
+     *
+     * @return boolean
+     */
     @Bindable
     public String getErrorUserName() {
         if (TextUtils.isEmpty(this.user.getName())) {
@@ -161,6 +177,17 @@ public class UserViewModel extends BaseObservable {
         } else {
             return null;
         }
+    }
+
+    /**
+     * checks for empty string
+     *
+     * @param text string
+     * @return bool
+     */
+    private boolean isEmpty(String text)
+    {
+        return text == null || text.trim().length() == 0;
     }
 
 }
