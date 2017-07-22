@@ -2,12 +2,17 @@ package com.technologies.pittu.zoloassignment.view;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.technologies.pittu.zoloassignment.R;
 import com.technologies.pittu.zoloassignment.ZoloApplication;
@@ -26,8 +31,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     @Inject
     RealmDatabaseHelper realmDatabaseHelper;
-
     RegisterDataBinding registerDataBinding;
+    private boolean isPasswordVisible = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +42,8 @@ public class RegisterActivity extends AppCompatActivity {
         registerDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_register);
         UserViewModel viewModel = new UserViewModel();
         registerDataBinding.setRegister(viewModel);
+        registerDataBinding.setPasswordInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        registerDataBinding.setPasswordVisibleIcon(R.drawable.ic_visibility_white_24dp);
     }
 
     /**
@@ -74,11 +81,33 @@ public class RegisterActivity extends AppCompatActivity {
                     .setMessage("Your Account has been successfully created , please login to see your profile")
                     .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
+                            startActivity(new Intent(getBaseContext(), LoginActivity.class));
                             finish();
                         }
                     }).show();
         }
     }
 
+    /**
+     * on click of show icon
+     *
+     * @param view view
+     */
+    public void onClickShowIcon(View view) {
+        if (isPasswordVisible) {
+            isPasswordVisible = false;
+            registerDataBinding.setPasswordInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            registerDataBinding.setPasswordVisibleIcon(R.drawable.ic_visibility_white_24dp);
+        } else {
+            isPasswordVisible = true;
+            registerDataBinding.setPasswordInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+            registerDataBinding.setPasswordVisibleIcon(R.drawable.ic_visibility_off_white_24dp);
+        }
+    }
+
+    @BindingAdapter("android:src")
+    public static void setImageResource(ImageView imageView, int resource) {
+        imageView.setImageResource(resource);
+    }
 
 }

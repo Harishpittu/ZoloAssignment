@@ -7,6 +7,12 @@
         <variable
             name="Profile"
             type="com.technologies.pittu.zoloassignment.viewmodel.UserViewModel"/>
+        <variable
+            name="PasswordInputType"
+            type="int"/>
+        <variable
+            name="passwordVisibleIcon"
+            type="int"/>
     </data>
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -35,9 +41,9 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
+                        android:onClick="onClickLogout"
                         android:padding="15dp"
                         android:text="@string/logout_button_text"
-                        android:onClick="onClickLogout"
                         android:textColor="@color/white"
                         android:textSize="16sp"
                         android:textStyle="bold"/>
@@ -64,7 +70,7 @@
                         android:textColor="@color/white"
                         android:textSize="30sp"
                         android:textStyle="bold"/>
-                    
+
                 </RelativeLayout>
 
                 <LinearLayout
@@ -104,9 +110,9 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:backgroundTint="@color/white"
+                                android:enabled="false"
                                 android:hint="@string/your_phonenumber_hint"
                                 android:inputType="phone"
-                                android:enabled="false"
                                 android:text="@={Profile.userPhoneNumber}"
                                 android:textColor="@color/white"
                                 android:textSize="17sp"/>
@@ -146,14 +152,14 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:backgroundTint="@color/white"
+                                android:drawableEnd="@{Profile.emailDoneIcon}"
+                                android:drawableRight="@{Profile.emailDoneIcon}"
                                 android:hint="@string/your_email_hint"
                                 android:inputType="textEmailAddress"
                                 android:text="@={Profile.userEmail}"
-                                android:drawableRight="@{Profile.emailDoneIcon}"
-                                android:drawableEnd="@{Profile.emailDoneIcon}"
-                                app:error="@{Profile.errorEmail}"
                                 android:textColor="@color/white"
-                                android:textSize="17sp"/>
+                                android:textSize="17sp"
+                                app:error="@{Profile.errorEmail}"/>
 
                         </android.support.design.widget.TextInputLayout>
 
@@ -191,13 +197,13 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:backgroundTint="@color/white"
-                                android:hint="@string/your_name_hint"
-                                android:drawableRight="@{Profile.emailDoneIcon}"
                                 android:drawableEnd="@{Profile.emailDoneIcon}"
+                                android:drawableRight="@{Profile.emailDoneIcon}"
+                                android:hint="@string/your_name_hint"
                                 android:text="@={Profile.userName}"
-                                app:error="@{Profile.errorUserName}"
                                 android:textColor="@color/white"
-                                android:textSize="17sp"/>
+                                android:textSize="17sp"
+                                app:error="@{Profile.errorUserName}"/>
 
                         </android.support.design.widget.TextInputLayout>
                     </RelativeLayout>
@@ -234,13 +240,22 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:backgroundTint="@color/white"
-                                android:hint="@string/set_password_hint"
-                                android:inputType="textPassword"
+                                android:hint="@string/password_hint"
+                                android:inputType="@{PasswordInputType}"
                                 android:text="@={Profile.userPassword}"
                                 android:textColor="@color/white"
                                 android:textSize="17sp"/>
 
                         </android.support.design.widget.TextInputLayout>
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:onClick="onClickShowIcon"
+                            android:padding="13dp"
+                            android:src="@{passwordVisibleIcon}"/>
                     </RelativeLayout>
 
                     <Button
@@ -256,8 +271,8 @@
                         android:layout_marginStart="30dp"
                         android:layout_marginTop="10dp"
                         android:background="@color/themeYellow"
-                        android:text="@string/update_profile"
                         android:onClick="onClickProfile"
+                        android:text="@string/update_profile"
                         android:textColor="@color/black"
                         android:textSize="17sp"/>
                 </LinearLayout>

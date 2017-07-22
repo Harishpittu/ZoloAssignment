@@ -2,12 +2,17 @@ package com.technologies.pittu.zoloassignment.view;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.technologies.pittu.zoloassignment.R;
 import com.technologies.pittu.zoloassignment.ZoloApplication;
@@ -32,6 +37,8 @@ public class UserProfileActivity extends AppCompatActivity {
     RealmDatabaseHelper realmDatabaseHelper;
 
     ProfileDataBinding profileDataBinding;
+    private boolean isPasswordVisible = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +49,8 @@ public class UserProfileActivity extends AppCompatActivity {
         User user = realmDatabaseHelper.getUserWithPhoneNumber(sharedPrefsHelper.getLoggedInUserPhoneNumber());
         UserViewModel viewModel = new UserViewModel(user);
         profileDataBinding.setProfile(viewModel);
+        profileDataBinding.setPasswordInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        profileDataBinding.setPasswordVisibleIcon(R.drawable.ic_visibility_white_24dp);
     }
 
     /**
@@ -83,5 +92,27 @@ public class UserProfileActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * on click of show icon
+     *
+     * @param view view
+     */
+    public void onClickShowIcon(View view) {
+        if (isPasswordVisible) {
+            isPasswordVisible = false;
+            profileDataBinding.setPasswordInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            profileDataBinding.setPasswordVisibleIcon(R.drawable.ic_visibility_white_24dp);
+        } else {
+            isPasswordVisible = true;
+            profileDataBinding.setPasswordInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+            profileDataBinding.setPasswordVisibleIcon(R.drawable.ic_visibility_off_white_24dp);
+        }
+
+    }
+
+    @BindingAdapter("android:src")
+    public static void setImageResource(ImageView imageView, int resource) {
+        imageView.setImageResource(resource);
+    }
 
 }

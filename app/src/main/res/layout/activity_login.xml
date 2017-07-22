@@ -5,6 +5,12 @@
         <variable
             name="Login"
             type="com.technologies.pittu.zoloassignment.viewmodel.UserViewModel"/>
+        <variable
+            name="PasswordInputType"
+            type="int"/>
+        <variable
+            name="passwordVisibleIcon"
+            type="int"/>
     </data>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -96,11 +102,19 @@
                     android:backgroundTint="@color/white"
                     android:hint="@string/password_hint"
                     android:text="@={Login.userPassword}"
-                    android:inputType="textPassword"
+                    android:inputType="@{PasswordInputType}"
                     android:textColor="@color/white"
                     android:textSize="17sp"/>
 
             </android.support.design.widget.TextInputLayout>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="13dp"
+                android:onClick="onClickShowIcon"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:src="@{passwordVisibleIcon}"/>
         </RelativeLayout>
 
         <Button

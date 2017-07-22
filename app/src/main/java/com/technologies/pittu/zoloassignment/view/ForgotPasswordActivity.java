@@ -3,11 +3,15 @@ package com.technologies.pittu.zoloassignment.view;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.technologies.pittu.zoloassignment.R;
 import com.technologies.pittu.zoloassignment.ZoloApplication;
@@ -27,10 +31,9 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
     @Inject
     RealmDatabaseHelper realmDatabaseHelper;
-
     ForgotPasswordDataBinding forgotPasswordDataBinding;
-
     private boolean isOTPSent;
+    private boolean isPasswordVisible = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +44,11 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         UserViewModel viewModel = new UserViewModel();
         forgotPasswordDataBinding.setForgotPassword(viewModel);
         forgotPasswordDataBinding.setIsPasswordVisible(false);
+        forgotPasswordDataBinding.setIsOTPVisible(false);
+        forgotPasswordDataBinding.setIsPhoneNumberVisible(true);
         forgotPasswordDataBinding.setButtonText("SUBMIT");
+        forgotPasswordDataBinding.setPasswordInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        forgotPasswordDataBinding.setPasswordVisibleIcon(R.drawable.ic_visibility_white_24dp);
     }
 
     /**
@@ -54,6 +61,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
 
     /**
      * on click of login button
@@ -69,10 +77,14 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 isOTPSent = true;
                 Utils.showSnackBar("Your OTP is 1234", view);
                 forgotPasswordDataBinding.setIsPasswordVisible(true);
+                forgotPasswordDataBinding.setIsOTPVisible(true);
+                forgotPasswordDataBinding.setIsPhoneNumberVisible(false);
                 forgotPasswordDataBinding.setButtonText("RESET PASSWORD");
             }
         } else {
-            if (!forgotPasswordDataBinding.getForgotPassword().isValidPassword()) {
+            if (TextUtils.isEmpty(forgotPasswordDataBinding.getOtpText()) || !forgotPasswordDataBinding.getOtpText().equalsIgnoreCase("1234")) {
+                Utils.showSnackBar("Incorrect OTP ", view);
+            } else if (!forgotPasswordDataBinding.getForgotPassword().isValidPassword()) {
                 Utils.showSnackBar("Password should have minimum 8 characters", view);
             } else {
                 realmDatabaseHelper.updatePassword(user, forgotPasswordDataBinding.getForgotPassword().getUser().getPassword());
@@ -91,6 +103,28 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                         }).show();
             }
         }
+    }
+
+    /**
+     * on click of show icon
+     *
+     * @param view view
+     */
+    public void onClickShowIcon(View view) {
+        if (isPasswordVisible) {
+            isPasswordVisible = false;
+            forgotPasswordDataBinding.setPasswordInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            forgotPasswordDataBinding.setPasswordVisibleIcon(R.drawable.ic_visibility_white_24dp);
+        } else {
+            isPasswordVisible = true;
+            forgotPasswordDataBinding.setPasswordInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+            forgotPasswordDataBinding.setPasswordVisibleIcon(R.drawable.ic_visibility_off_white_24dp);
+        }
+    }
+
+    @BindingAdapter("android:src")
+    public static void setImageResource(ImageView imageView, int resource) {
+        imageView.setImageResource(resource);
     }
 
 }

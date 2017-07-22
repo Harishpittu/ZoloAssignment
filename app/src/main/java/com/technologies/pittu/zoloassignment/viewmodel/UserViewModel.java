@@ -121,7 +121,7 @@ public class UserViewModel extends BaseObservable {
 
     public boolean isAllFieldsValid() {
         return !(TextUtils.isEmpty(this.user.getPassword()) || this.user.getPassword().length() < 8 || TextUtils.isEmpty(this.user.getEmail()) || !isValidEmail(this.user.getEmail()) ||
-                TextUtils.isEmpty(this.user.getName()) || TextUtils.isEmpty(this.user.getPhoneNumber()));
+                TextUtils.isEmpty(this.user.getName()) || TextUtils.isEmpty(this.user.getPhoneNumber())|| this.user.getPhoneNumber().length() < 8);
     }
 
     //These Methods Check For Validation Every Time user enters a character

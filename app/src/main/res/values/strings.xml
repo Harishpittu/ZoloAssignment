@@ -5,6 +5,7 @@
     <string name="your_phonenumber_hint">YOUR PHONE NUMBER</string>
     <string name="your_email_hint">YOUR EMAIL</string>
     <string name="your_name_hint">YOUR NAME</string>
+    <string name="otp_hint">OTP</string>
     <string name="set_password_hint">SET PASSWORD</string>
     <string name="password_hint">PASSWORD</string>
     <string name="login_button_text">LOG IN</string>
