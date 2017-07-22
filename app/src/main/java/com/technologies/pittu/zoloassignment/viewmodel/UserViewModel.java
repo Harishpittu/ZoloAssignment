@@ -4,7 +4,6 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.technologies.pittu.zoloassignment.BR;
 import com.technologies.pittu.zoloassignment.R;
@@ -24,11 +23,28 @@ public class UserViewModel extends BaseObservable {
     private User user;
 
     public UserViewModel(User user) {
-        this.user = user;
+        //  creating new object if it is realm object
+        this.user = new User();
+        this.user.setName(user.getName());
+        this.user.setPhoneNumber(user.getPhoneNumber());
+        this.user.setEmail(user.getEmail());
+        this.user.setPassword(user.getPassword());
     }
+
+
 
     public UserViewModel() {
         user = new User();
+    }
+
+    private boolean isOTPSent ;
+
+    public boolean isOTPSent() {
+        return isOTPSent;
+    }
+
+    public void setOTPSent(boolean OTPSent) {
+        isOTPSent = OTPSent;
     }
 
     public User getUser() {
@@ -39,7 +55,6 @@ public class UserViewModel extends BaseObservable {
         this.user = user;
     }
 
-    private boolean isValidPassword = true;
     private Drawable emailDoneIcon = null;
     private Drawable phoneNumberDoneIcon = null;
 
@@ -93,19 +108,6 @@ public class UserViewModel extends BaseObservable {
     }
 
     @Bindable
-    public String getErrorPassword() {
-        Log.d("", "getErrorPassword: ");
-        if (this.user.getPassword() == null || this.user.getPassword().length() < 8) {
-            isValidPassword = false;
-            return "Enter atleast 8 characters";
-        } else {
-            isValidPassword = true;
-            return null;
-        }
-    }
-
-
-    @Bindable
     public Drawable getEmailDoneIcon() {
         return emailDoneIcon;
     }
@@ -116,8 +118,9 @@ public class UserViewModel extends BaseObservable {
 
 
     public boolean isValidPassword() {
-       return !(TextUtils.isEmpty(this.user.getPassword()) || this.user.getPassword().length() < 8);
+        return !(TextUtils.isEmpty(this.user.getPassword()) || this.user.getPassword().length() < 8);
     }
+
     public boolean isAllFieldsValid() {
         return !(TextUtils.isEmpty(this.user.getPassword()) || this.user.getPassword().length() < 8 || TextUtils.isEmpty(this.user.getEmail()) || !isValidEmail(this.user.getEmail()) ||
                 TextUtils.isEmpty(this.user.getName()) || TextUtils.isEmpty(this.user.getPhoneNumber()));

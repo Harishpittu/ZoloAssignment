@@ -35,7 +35,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ZoloApplication.getApplicationComponent().inject(this);
-
+        if (sharedPrefsHelper.isUserLoggedIn()) {
+            startActivity(new Intent(this, UserProfileActivity.class));
+            finish();
+        }
         loginDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         UserViewModel viewModel = new UserViewModel();
         loginDataBinding.setLogin(viewModel);
@@ -57,11 +60,10 @@ public class LoginActivity extends AppCompatActivity {
     public void onClickLogin(View view) {
         if (realmDatabaseHelper.doesUserExists(loginDataBinding.getLogin().getUser())) {
             sharedPrefsHelper.savePhoneNumber(loginDataBinding.getLogin().getUser().getPhoneNumber());
-            Intent intent = new Intent(this, RegisterActivity.class);
-            startActivity(intent);
+            startActivity(new Intent(this, UserProfileActivity.class));
             finish();
-        }else {
-            Utils.showSnackBar("Invalid Username/Password",view);
+        } else {
+            Utils.showSnackBar("Invalid Username/Password", view);
         }
     }
 
@@ -71,8 +73,7 @@ public class LoginActivity extends AppCompatActivity {
      * @param view view
      */
     public void onClickCreateAccount(View view) {
-        Intent intent = new Intent(this, RegisterActivity.class);
-        startActivity(intent);
+        startActivity(new Intent(this, RegisterActivity.class));
         finish();
     }
 
@@ -82,8 +83,7 @@ public class LoginActivity extends AppCompatActivity {
      * @param view view
      */
     public void onClickForgotPassword(View view) {
-        Intent intent = new Intent(this, RegisterActivity.class);
-        startActivity(intent);
+        startActivity(new Intent(this, RegisterActivity.class));
         finish();
     }
 }

@@ -22,7 +22,7 @@ import javax.inject.Inject;
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class RegisterActivity extends AppCompatActivity {
+public class ForgotPasswordActivity extends AppCompatActivity {
 
     @Inject
     RealmDatabaseHelper realmDatabaseHelper;
@@ -32,9 +32,9 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_forgot_password);
         ZoloApplication.getApplicationComponent().inject(this);
-        registerDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_register);
+        registerDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_forgot_password);
         UserViewModel viewModel = new UserViewModel();
         registerDataBinding.setRegister(viewModel);
     }

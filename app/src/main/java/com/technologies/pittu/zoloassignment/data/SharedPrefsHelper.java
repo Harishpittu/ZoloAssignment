@@ -83,4 +83,7 @@ public class SharedPrefsHelper {
     public void deleteSavedData(String key) {
         this.sharedPreferences.edit().remove(key).apply();
     }
+    public void clearAllData() {
+        this.sharedPreferences.edit().clear().apply();
+    }
 }
