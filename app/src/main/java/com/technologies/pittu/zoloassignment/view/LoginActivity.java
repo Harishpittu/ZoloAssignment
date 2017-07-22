@@ -11,6 +11,7 @@ import com.technologies.pittu.zoloassignment.ZoloApplication;
 import com.technologies.pittu.zoloassignment.data.RealmDatabaseHelper;
 import com.technologies.pittu.zoloassignment.data.SharedPrefsHelper;
 import com.technologies.pittu.zoloassignment.databinding.LoginDataBinding;
+import com.technologies.pittu.zoloassignment.utils.Utils;
 import com.technologies.pittu.zoloassignment.viewmodel.UserViewModel;
 
 import javax.inject.Inject;
@@ -56,11 +57,12 @@ public class LoginActivity extends AppCompatActivity {
     public void onClickLogin(View view) {
         if (realmDatabaseHelper.doesUserExists(loginDataBinding.getLogin().getUser())) {
             sharedPrefsHelper.savePhoneNumber(loginDataBinding.getLogin().getUser().getPhoneNumber());
+            Intent intent = new Intent(this, RegisterActivity.class);
+            startActivity(intent);
+            finish();
+        }else {
+            Utils.showSnackBar("Invalid Username/Password",view);
         }
-        Intent intent = new Intent(this, RegisterActivity.class);
-        startActivity(intent);
-        finish();
-
     }
 
     /**

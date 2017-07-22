@@ -3,10 +3,12 @@ package com.technologies.pittu.zoloassignment.viewmodel;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.graphics.drawable.Drawable;
+import android.text.TextUtils;
 import android.util.Log;
 
-import com.technologies.pittu.zoloassignment.R;
 import com.technologies.pittu.zoloassignment.BR;
+import com.technologies.pittu.zoloassignment.R;
+import com.technologies.pittu.zoloassignment.ZoloApplication;
 import com.technologies.pittu.zoloassignment.model.User;
 
 import java.util.regex.Matcher;
@@ -38,7 +40,8 @@ public class UserViewModel extends BaseObservable {
     }
 
     private boolean isValidPassword = true;
-    private Drawable doneIcon;
+    private Drawable emailDoneIcon = null;
+    private Drawable phoneNumberDoneIcon = null;
 
     public String getUserEmail() {
         return user.getEmail();
@@ -52,7 +55,6 @@ public class UserViewModel extends BaseObservable {
         notifyPropertyChanged(BR.errorEmail);
     }
 
-    @Bindable
     public String getUserPassword() {
         return user.getPassword();
     }
@@ -66,80 +68,62 @@ public class UserViewModel extends BaseObservable {
 
     }
 
-    @Bindable
     public String getUserPhoneNumber() {
         return user.getPhoneNumber();
     }
 
     public void setUserPhoneNumber(String userPhoneNumber) {
         this.user.setPhoneNumber(userPhoneNumber);
+        /** To get value of edittext enterd by user, This Updates the value of userEmail on Every LEtter Entered by User*/
+        notifyPropertyChanged(R.id.phonenumberEditText);
+        /**to check Email for validation on every character inserted by user*/
+        notifyPropertyChanged(BR.errorPhoneNumber);
     }
-    @Bindable
+
     public String getUserName() {
-        return user.getPhoneNumber();
+        return user.getName();
     }
 
     public void setUserName(String userName) {
         this.user.setName(userName);
+        /** To get value of edittext enterd by user, This Updates the value of userEmail on Every LEtter Entered by User*/
+        notifyPropertyChanged(R.id.nameEditText);
+        /**to check Email for validation on every character inserted by user*/
+        notifyPropertyChanged(BR.errorUserName);
     }
-
-    //These Methods Check For Validation Every Time user enters a character
-    public static boolean isValidPassword(final String password) {
-        Pattern pattern;
-        Matcher matcher;
-        final String PASSWORD_PATTERN = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})";
-        pattern = Pattern.compile(PASSWORD_PATTERN);
-
-        matcher = pattern.matcher(password);
-        return matcher.matches();
-    }
-
 
     @Bindable
     public String getErrorPassword() {
         Log.d("", "getErrorPassword: ");
-        if (this.user.getPassword() == null) {
+        if (this.user.getPassword() == null || this.user.getPassword().length() < 8) {
             isValidPassword = false;
-            setDoneIcon(null);
-            return "Please Enter";
-        } else if (this.user.getPassword().length() < 8) {
-            isValidPassword = false;
-            setDoneIcon(null);
             return "Enter atleast 8 characters";
         } else {
-//            if (this.user.getPassword().length() < 10)
-//                setDoneIcon(ZoloApplication.zoloApplication().getResources().getDrawable(R.drawable.ic_done_black_24dp));
-//            else
-//                setDoneIcon(App.app().getResources().getDrawable(R.drawable.ic_visibility_white_24dp));
             isValidPassword = true;
             return null;
         }
-
     }
+
 
     @Bindable
-    public String getErrorPhoneNumber() {
-
-        return "phone num";
+    public Drawable getEmailDoneIcon() {
+        return emailDoneIcon;
     }
 
-    @Bindable
-    public Drawable getDoneIcon() {
-//        Log.d("", "getDoneIcon: ");
-//        if (isValidPassword) {
-//        } else {
-//            return null;
-//        }
-        return doneIcon;
+    public void setEmailDoneIcon(Drawable emailDoneIcon) {
+        this.emailDoneIcon = emailDoneIcon;
     }
 
-    public void setDoneIcon(Drawable doneIcon) {
-        this.doneIcon = doneIcon;
-        notifyPropertyChanged(BR.doneIcon);
+
+    public boolean isValidPassword() {
+       return !(TextUtils.isEmpty(this.user.getPassword()) || this.user.getPassword().length() < 8);
     }
+    public boolean isAllFieldsValid() {
+        return !(TextUtils.isEmpty(this.user.getPassword()) || this.user.getPassword().length() < 8 || TextUtils.isEmpty(this.user.getEmail()) || !isValidEmail(this.user.getEmail()) ||
+                TextUtils.isEmpty(this.user.getName()) || TextUtils.isEmpty(this.user.getPhoneNumber()));
+    }
+
     //These Methods Check For Validation Every Time user enters a character
-
-
     public static boolean isValidEmail(final String userEmail) {
         Pattern pattern;
         Matcher matcher;
@@ -152,10 +136,27 @@ public class UserViewModel extends BaseObservable {
     // If you Dont Bind Here You Wont get BR values
     @Bindable
     public String getErrorEmail() {
-        if (this.user.getEmail() == null) {
-            return "Please Enter";
-        } else if (!isValidEmail(this.user.getEmail())) {
-            return "Enter valid Id";
+        setEmailDoneIcon(ZoloApplication.zoloApplication().getResources().getDrawable(R.drawable.ic_done_green_700_24dp));
+        if (this.user.getEmail() == null || !isValidEmail(this.user.getEmail())) {
+            return "Enter valid email Id";
+        } else {
+            return null;
+        }
+    }
+
+    @Bindable
+    public String getErrorPhoneNumber() {
+        if (TextUtils.isEmpty(this.user.getPhoneNumber()) || this.user.getPhoneNumber().length() < 8) {
+            return "Please enter valid phonenumber";
+        } else {
+            return null;
+        }
+    }
+
+    @Bindable
+    public String getErrorUserName() {
+        if (TextUtils.isEmpty(this.user.getName())) {
+            return "Please enter name";
         } else {
             return null;
         }
