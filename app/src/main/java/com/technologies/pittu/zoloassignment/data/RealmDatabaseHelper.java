@@ -30,12 +30,12 @@ public class RealmDatabaseHelper {
     /**
      * to check whether user exists or not
      *
-     * @param phoneNumber string
+     * @param user user object
      * @return bool
      */
-    public boolean doesUserExists(String phoneNumber) {
-        User user = realm.where(User.class).equalTo("phoneNumber", phoneNumber).findFirst();
-        return user != null;
+    public boolean doesUserExists(User user) {
+        User storedUser = realm.where(User.class).equalTo("phoneNumber", user.getPhoneNumber()).equalTo("password", user.getPassword()).findFirst();
+        return storedUser != null;
     }
 
     /**

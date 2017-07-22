@@ -3,6 +3,7 @@ package com.technologies.pittu.zoloassignment;
 import android.app.Application;
 
 import com.technologies.pittu.zoloassignment.dependencyInjection.component.ApplicationComponent;
+import com.technologies.pittu.zoloassignment.dependencyInjection.component.DaggerApplicationComponent;
 import com.technologies.pittu.zoloassignment.dependencyInjection.module.AppModule;
 
 /**
@@ -12,24 +13,23 @@ import com.technologies.pittu.zoloassignment.dependencyInjection.module.AppModul
 
 public class ZoloApplication extends Application {
     private static ZoloApplication zoloApplication;
-    private ApplicationComponent applicationComponent;
+    private static ApplicationComponent applicationComponent;
 
     @Override
     public void onCreate() {
         super.onCreate();
         zoloApplication = this;
-
-//        applicationComponent = DaggerApplicationComponent.builder()
-//                .appModule(new AppModule(this))
-//                .build();
-//        applicationComponent.inject(this);
+        applicationComponent = DaggerApplicationComponent.builder()
+                .appModule(new AppModule(this))
+                .build();
+        applicationComponent.inject(this);
     }
 
     public static ZoloApplication zoloApplication() {
         return zoloApplication;
     }
 
-    public ApplicationComponent getApplicationComponent() {
+    public static ApplicationComponent getApplicationComponent() {
         return applicationComponent;
     }
 

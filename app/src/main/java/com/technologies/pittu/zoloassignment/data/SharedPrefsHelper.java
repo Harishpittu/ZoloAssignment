@@ -32,6 +32,14 @@ public class SharedPrefsHelper {
     }
 
     /**
+     * to save phone number
+     *
+     */
+    public void savePhoneNumber(String phoneNumber) {
+         put(USER_PHONENUMBER,phoneNumber);
+    }
+
+    /**
      * to get logged in phone number
      *
      * @return phoneNumber

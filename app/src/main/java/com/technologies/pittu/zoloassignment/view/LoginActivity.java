@@ -1,16 +1,17 @@
 package com.technologies.pittu.zoloassignment.view;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Toast;
 
 import com.technologies.pittu.zoloassignment.R;
 import com.technologies.pittu.zoloassignment.ZoloApplication;
 import com.technologies.pittu.zoloassignment.data.RealmDatabaseHelper;
 import com.technologies.pittu.zoloassignment.data.SharedPrefsHelper;
-import com.technologies.pittu.zoloassignment.model.User;
+import com.technologies.pittu.zoloassignment.databinding.LoginDataBinding;
+import com.technologies.pittu.zoloassignment.viewmodel.UserViewModel;
 
 import javax.inject.Inject;
 
@@ -23,20 +24,20 @@ public class LoginActivity extends AppCompatActivity {
     @Inject
     SharedPrefsHelper sharedPrefsHelper;
 
+    LoginDataBinding loginDataBinding;
+
     @Inject
     RealmDatabaseHelper realmDatabaseHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-//        ZoloApplication.zoloApplication().getApplicationComponent().inject(this);
-//        User user = new User();
-//        user.setPhoneNumber("123");
-//        user.setName("harish79879879");
-//        user.setEmail("harish@gmai");
-//        user.setPassword("1235");
-//        realmDatabaseHelper.copyORUpdate(user);
-//        Toast.makeText(this, ""+realmDatabaseHelper.getUserWithPhoneNumber("123").getName(), Toast.LENGTH_SHORT).show();
+        ZoloApplication.getApplicationComponent().inject(this);
+
+        loginDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_login);
+        UserViewModel viewModel = new UserViewModel();
+        loginDataBinding.setLogin(viewModel);
 //      View mContentView ;
 //        mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
 //                | View.SYSTEM_UI_FLAG_FULLSCREEN
@@ -49,14 +50,22 @@ public class LoginActivity extends AppCompatActivity {
 
     /**
      * on click of login button
+     *
      * @param view view
      */
     public void onClickLogin(View view) {
+        if (realmDatabaseHelper.doesUserExists(loginDataBinding.getLogin().getUser())) {
+            sharedPrefsHelper.savePhoneNumber(loginDataBinding.getLogin().getUser().getPhoneNumber());
+        }
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
+        finish();
+
     }
+
     /**
      * on click of create account
+     *
      * @param view view
      */
     public void onClickCreateAccount(View view) {
@@ -64,8 +73,10 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
     /**
      * on click of forgot password
+     *
      * @param view view
      */
     public void onClickForgotPassword(View view) {

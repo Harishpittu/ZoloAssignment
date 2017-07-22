@@ -2,9 +2,12 @@ package com.technologies.pittu.zoloassignment.dependencyInjection.component;
 
 
 import android.app.Application;
+import android.content.Context;
 
 import com.technologies.pittu.zoloassignment.dependencyInjection.module.AppModule;
 import com.technologies.pittu.zoloassignment.view.LoginActivity;
+import com.technologies.pittu.zoloassignment.view.RegisterActivity;
+import com.technologies.pittu.zoloassignment.viewmodel.UserViewModel;
 
 import javax.inject.Singleton;
 
@@ -19,5 +22,8 @@ import dagger.Component;
 @Component(modules = {AppModule.class})
 public interface ApplicationComponent {
     void inject(Application application);
+    void inject(Context context);
     void inject(LoginActivity loginActivity);
+    void inject(RegisterActivity registerActivity);
+    void inject(UserViewModel userViewModel);
 }
