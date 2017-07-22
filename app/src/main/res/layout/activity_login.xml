@@ -1,8 +1,141 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:background="@color/themeBlue"
-             tools:context="com.technologies.pittu.zoloassignment.LoginActivity">
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/themeBlue"
+                tools:context="com.technologies.pittu.zoloassignment.view.LoginActivity">
 
+    <ImageView
+        android:id="@+id/backgroundImageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/image"
+        android:scaleType="centerCrop"
+        android:src="@drawable/zolo_bg"/>
+
+    <RelativeLayout
+        android:id="@+id/phoneNumberLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/backgroundImageView"
+        android:layout_margin="15dp">
+
+        <ImageView
+            android:id="@+id/phoneIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:contentDescription="@string/image"
+            android:src="@drawable/ic_phone_white_24dp"/>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_phonenumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_toEndOf="@id/phoneIcon"
+            android:layout_toRightOf="@id/phoneIcon"
+            android:padding="5dp"
+            android:textColorHint="@color/themeYellow">
+
+            <EditText
+                android:id="@+id/phonenumberEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:hint="@string/phonenumber_hint"
+                android:inputType="phone"
+                android:textSize="17sp"
+                android:textColor="@color/white"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/passwordLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/phoneNumberLayout"
+        android:layout_margin="15dp">
+
+        <ImageView
+            android:id="@+id/key_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:contentDescription="@string/image"
+            android:src="@drawable/ic_vpn_key_white_24dp"/>
+
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_toEndOf="@id/key_icon"
+            android:layout_toRightOf="@id/key_icon"
+            android:padding="5dp"
+            android:textColorHint="@color/themeYellow">
+
+            <EditText
+                android:id="@+id/passwordEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:hint="@string/password_hint"
+                android:inputType="textPassword"
+                android:textSize="17sp"
+                android:textColor="@color/white"/>
+
+        </android.support.design.widget.TextInputLayout>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/passwordLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:onClick="onClickLogin"
+        android:background="@color/themeYellow"
+        android:text="@string/login_button_text"
+        android:textColor="@color/black"
+        android:textSize="17sp"/>
+
+    <TextView
+        android:id="@+id/forgotPasswordTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/loginButton"
+        android:gravity="center_horizontal"
+        android:padding="10dp"
+        android:onClick="onClickForgotPassword"
+        android:text="@string/forgot_password"
+        android:textColor="@color/white"
+        android:textSize="16sp"/>
+
+    <Button
+        android:id="@+id/buttonCreateAccount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/forgotPasswordTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:onClick="onClickCreateAccount"
+        android:background="@color/createAccountButton"
+        android:text="@string/create_account_button_text"
+        android:textColor="@color/white"
+        android:textSize="15sp"/>
 </RelativeLayout>

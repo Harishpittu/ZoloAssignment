@@ -1,6 +1,17 @@
 <resources>
     <string name="app_name">ZoloAssignment</string>
 
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="phonenumber_hint">PHONE NUMBER</string>
+    <string name="your_phonenumber_hint">YOUR PHONE NUMBER</string>
+    <string name="your_email_hint">YOUR EMAIL</string>
+    <string name="your_name_hint">YOUR NAME</string>
+    <string name="set_password_hint">SET PASSWORD</string>
+    <string name="password_hint">PASSWORD</string>
+    <string name="login_button_text">LOG IN</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="register">REGISTER</string>
+    <string name="zolo">ZOLO</string>
+    <string name="image">Image</string>
+    <string name="create_account_button_text">CREATE ACCOUNT</string>
+    <string name="please_register_text">Please register with Zolo to continue</string>
 </resources>
