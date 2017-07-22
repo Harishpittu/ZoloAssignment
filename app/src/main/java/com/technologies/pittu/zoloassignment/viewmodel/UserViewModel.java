@@ -78,8 +78,6 @@ public class UserViewModel extends BaseObservable {
         this.user.setPassword(userPassword);
         // Same for pass word
         notifyPropertyChanged(R.id.passwordEditText);
-        //this line will notify new value of password every time
-        notifyPropertyChanged(BR.errorPassword);
 
     }
 

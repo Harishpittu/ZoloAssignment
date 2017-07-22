@@ -83,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
      * @param view view
      */
     public void onClickForgotPassword(View view) {
-        startActivity(new Intent(this, RegisterActivity.class));
+        startActivity(new Intent(this, ForgotPasswordActivity.class));
         finish();
     }
 }

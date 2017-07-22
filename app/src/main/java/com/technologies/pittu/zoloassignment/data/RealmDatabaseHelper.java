@@ -59,6 +59,21 @@ public class RealmDatabaseHelper {
     }
 
     /**
+     * get update password
+     *
+     * @param password string
+     * @return user
+     */
+    public void updatePassword(final User user, final String password) {
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                user.setPassword(password);
+            }
+        });
+    }
+
+    /**
      * clear all data in realm
      */
     public void clearRealm() {
