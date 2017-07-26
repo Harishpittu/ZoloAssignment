@@ -9,9 +9,7 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
-import android.text.TextUtils;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.technologies.pittu.zoloassignment.R;
@@ -67,6 +65,14 @@ public class UserProfileActivity extends AppCompatActivity {
         finish();
     }
 
+    /**
+     * on click of register
+     *
+     * @param view view
+     */
+    public void onClickShowData(View view) {
+        startActivity(new Intent(this,AbacusActivity.class));
+    }
     /**
      * on click of register
      *

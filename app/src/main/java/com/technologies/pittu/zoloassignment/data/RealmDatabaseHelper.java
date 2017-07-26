@@ -2,6 +2,7 @@ package com.technologies.pittu.zoloassignment.data;
 
 
 import com.technologies.pittu.zoloassignment.model.User;
+import com.technologies.pittu.zoloassignment.model.Words;
 
 import java.util.List;
 
@@ -46,6 +47,14 @@ public class RealmDatabaseHelper {
      */
     public User getUserWithPhoneNumber(String phoneNumber) {
         return realm.where(User.class).equalTo("phoneNumber", phoneNumber).findFirst();
+    }
+
+    /**
+     * get all words
+     *
+     */
+    public Words getWords() {
+        return realm.where(Words.class).findFirst();
     }
 
     /**

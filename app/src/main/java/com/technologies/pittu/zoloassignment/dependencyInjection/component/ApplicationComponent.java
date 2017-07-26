@@ -7,6 +7,7 @@ import android.content.Context;
 import com.technologies.pittu.zoloassignment.dependencyInjection.module.AppModule;
 import com.technologies.pittu.zoloassignment.view.ForgotPasswordActivity;
 import com.technologies.pittu.zoloassignment.view.LoginActivity;
+import com.technologies.pittu.zoloassignment.view.AbacusActivity;
 import com.technologies.pittu.zoloassignment.view.RegisterActivity;
 import com.technologies.pittu.zoloassignment.view.UserProfileActivity;
 import com.technologies.pittu.zoloassignment.viewmodel.UserViewModel;
@@ -26,6 +27,7 @@ public interface ApplicationComponent {
     void inject(Application application);
     void inject(Context context);
     void inject(LoginActivity loginActivity);
+    void inject(AbacusActivity recyclerViewActivity);
     void inject(RegisterActivity registerActivity);
     void inject(UserProfileActivity userProfileActivity);
     void inject(ForgotPasswordActivity forgotPasswordActivity);

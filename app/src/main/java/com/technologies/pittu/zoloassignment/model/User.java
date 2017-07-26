@@ -18,6 +18,13 @@ public class User extends RealmObject{
     public User() {
     }
 
+    public User(String phoneNumber, String email, String password, String name) {
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.password = password;
+        this.name = name;
+    }
+
     public String getPhoneNumber() {
         return phoneNumber;
     }
